@@ -5,6 +5,7 @@
 import os
 import shutil
 
+# 一些配置变量
 dir_input = r''              # 实际目录
 dir_input_backup = r''       # 备份目录
 flag_backup = False          # 用于指示仅仅查找还是进行备份，默认情况下为仅仅查找
@@ -12,7 +13,7 @@ flag_backup = False          # 用于指示仅仅查找还是进行备份，默�
 
 
 def get_dir_size_mtime(path_dir):
-    # 获取文件夹大小和最新更改时间
+    '''获取文件夹大小和最新更改时间'''
     mtime = size = 0
     for root, dirs, files in os.walk(path_dir):
         for file in files:
@@ -23,14 +24,14 @@ def get_dir_size_mtime(path_dir):
 
 
 def get_file_size_mtime(path_file):
-    # 获取文件夹大小和最新更改时间
+    '''获取文件大小和最新更改时间'''
     size = os.path.getsize(path_file)
     mtime = os.stat(path_file).st_mtime
     return size, mtime
 
 
 def checkdir(dir_now, dir_bak, layer):
-    # 比较文件夹
+    '''比较文件夹'''
     filelist_now = os.listdir(dir_now)  # dir_now = 待比对实际路径文件夹
     filelist_bak = os.listdir(dir_bak)  # dir_bak = 待比对备份路径文件夹
     for file in filelist_now:    # file=文件/文件夹名
@@ -65,6 +66,7 @@ def checkdir(dir_now, dir_bak, layer):
 
 
 def main():
+    '''主函数'''
     print("【#】开始比对")
     if get_dir_size_mtime(dir_input) == get_dir_size_mtime(dir_input_backup):
         print("【#】无变化，无需更新备份")
